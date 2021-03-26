@@ -2,9 +2,8 @@ import socket
 import sys
 
 
-def rs_server(port, host):  # Used to search domain in rs server
+def sendRequest(port, host):  # Used to search domain in rs server
     resolved_file = open("RESOLVED.txt", "w")
-    tsHost = ""
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except socket.error as err:
@@ -48,7 +47,7 @@ def rs_server(port, host):  # Used to search domain in rs server
     return
 
 
-rs_server(14007, 'localhost')
+sendRequest(14007, 'localhost')
 '''
 if __name__ == "__main__":
     lsHost = ""

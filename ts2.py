@@ -34,18 +34,10 @@ def check_DNS_table(port, rs_dns):
             exit()
         reply = ""
         if (rs_dns == {}):
-            print("PROJI-DNSRS.txt is empty")
-            print("Closing connection")
-            reply = str(query) + " - Error:HOST NOT FOUND"
-            # conn.send(reply.encode('utf-8'))
+            pass
         elif query.lower() in rs_dns:
             reply = rs_dns[query.lower()]
-        else:
-            pass
         conn.send(reply.encode('utf-8'))
-    # except:
-        #print("Closing connection")
-        # conn.close()
     return
 
 
@@ -56,7 +48,7 @@ check_DNS_table(14008, rs_dns)
 if __name__ == "__main__":
     if(len(sys.argv) == 2):
         rs_port = int(sys.argv[1])
-        rs_dns, tsHost = get_DNS_values()
+        rs_dns = get_DNS_values()
         check_DNS_table(rs_port, rs_dns, tsHost)
     else:
         print("Insufficent arguments")

@@ -2,7 +2,7 @@ import socket
 import sys
 
 
-def check_DNS_table(port, ts1port, ts1Hostname, ts2Port, ts2Hostname):
+def lsServer(port, ts1port, ts1Hostname, ts2Port, ts2Hostname):
     try:
         ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except socket.error as err:
@@ -59,12 +59,15 @@ def check_DNS_table(port, ts1port, ts1Hostname, ts2Port, ts2Hostname):
     return
 
 
-check_DNS_table(14007, 14003, 'localhost', 14008, 'localhost')
+lsServer(14007, 14003, 'localhost', 14008, 'localhost')
 '''
 if __name__ == "__main__":
-    if(len(sys.argv) == 2):
+    if(len(sys.argv) == 6):
         ls_port = int(sys.argv[1])
-        check_DNS_table(ls_port, ts1Port, ts1Hostname, ts2Port, ts2Hostname)
+        ts1_host = str(sys.argv[2])
+        ts1_port = int(sys.argv[3])
+        ts2_host = str(sys.argv[4])
+        ts2_port = int(sys.argv[5])
     else:
         print("Insufficent arguments")
         exit()
