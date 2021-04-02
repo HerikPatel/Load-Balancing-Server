@@ -1,6 +1,6 @@
 import socket
 import sys
-
+import time
 
 def lsServer(port, ts1Hostname, ts1port, ts2Hostname, ts2Port):
     try:
@@ -40,21 +40,28 @@ def lsServer(port, ts1Hostname, ts1port, ts2Hostname, ts2Port):
         else:
             client1.send(query.encode('utf-8'))
             client2.send(query.encode('utf-8'))
-            received=""
+            #received=""
+            start = time.time()
+            got = False
             try:
                 data_from_server1 = client1.recv(200)
-                received = data_from_server1.decode('utf-8')
+                received1 = data_from_server1.decode('utf-8')
+                got = True
             except:
                 pass
 
-            try:
-                data_from_server2 = client2.recv(200)
-                received = data_from_server2.decode('utf-8')
-            except:
-                pass
-
-        if len(received) > 1:
-            conn.send(received.encode('utf-8'))
+            if got==False:
+                try:
+                    data_from_server2 = client2.recv(200)
+                    received2 = data_from_server2.decode('utf-8')
+                except:
+                    pass
+            end = time.time()
+            #print(end-start)
+        if len(received1) > 1:
+            conn.send(received1.encode('utf-8'))
+        elif len(received2) > 1:
+            conn.send(received2.encode('utf-8'))
         else:
             err = query+" - Error:HOST NOT FOUND"
             conn.send(err.encode('utf-8'))
