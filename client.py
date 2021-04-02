@@ -2,7 +2,7 @@ import socket
 import sys
 
 
-def sendRequest(port, host):  # Used to search domain in rs server
+def sendRequest(port, host):
     resolved_file = open("RESOLVED.txt", "w")
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,32 +33,29 @@ def sendRequest(port, host):  # Used to search domain in rs server
         data_from_server = client.recv(200)
         received = data_from_server.decode('utf-8')
         exists = 0
-        if "NS" in received:
+        '''if "NS" in received:
             tsHost = received
             exists = 1
-        else:
-            resolved_file.write(received+"\n")
+        else:'''
+        resolved_file.write(received+"\n")
     client.send("done".encode('utf-8'))
-    if(exists == 1):
-        pass
+    '''if(exists == 1):
+        pass'''
     f.close()
     client.close()
     resolved_file.close()
     return
 
 
-sendRequest(14007, 'localhost')
-'''
 if __name__ == "__main__":
     lsHost = ""
     lsPort = 0
-    tsPort = 0
     if(len(sys.argv) == 3):
         lsHost = str(sys.argv[1])
         lsPort = int(sys.argv[2])
+        sendRequest(lsPort, lsHost)
     else:
         print("Insufficent arguments")
         exit()
-    rs_server(lsPort, lsHost, tsPort)
+#    sendRequest(lsPort, lsHost)
     print("Done: please check RESOLVED.txt for results")
-'''

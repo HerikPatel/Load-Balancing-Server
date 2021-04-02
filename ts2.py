@@ -37,20 +37,14 @@ def check_DNS_table(port, rs_dns):
             pass
         elif query.lower() in rs_dns:
             reply = rs_dns[query.lower()]
-        conn.send(reply.encode('utf-8'))
+            conn.send(reply.encode('utf-8'))
     return
 
-
-rs_dns = get_DNS_values()
-check_DNS_table(14008, rs_dns)
-
-'''
 if __name__ == "__main__":
     if(len(sys.argv) == 2):
         rs_port = int(sys.argv[1])
         rs_dns = get_DNS_values()
-        check_DNS_table(rs_port, rs_dns, tsHost)
+        check_DNS_table(rs_port, rs_dns)
     else:
         print("Insufficent arguments")
         exit()
-'''
